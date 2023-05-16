@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>糖價查詢</title>
+    <title>糖價資料新增</title>
     <link rel="stylesheet" href="indexStyle.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -17,60 +17,11 @@
             <input type="text" id="Specifications" name="Specifications">
             <label for="Price">價錢(元/公斤)</label>
             <input type="text" onkeyup="value=value.replace(/[^\d.]/g,'')" id="Price" name="Price">
+            <button type="submit">Submit</button>
         </div>
 
-        <button type="submit">Submit</button>
     </form>
 
-    <div id="app">
-        <button v-on:click="handleClick">顯示資料</button>
-        <table>
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Item</th>
-                <th>Specifications</th>
-                <th>Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in data">
-                <td>{{ item.Date }}</td>
-                <td>{{ item.Item }}</td>
-                <td>{{ item.Specifications }}</td>
-                <td>{{ item.Price }}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 
-    <script>
-        const app = Vue.createApp({
-            data() {
-                return {
-                    data: []
-                };
-            },
-            methods: {
-                async handleClick() {
-                    console.log("data");
-
-                    const url = "http://localhost:3000/api"; // 資料傳送到的 URL
-                    try {
-                        const response = await fetch(url, {
-                            method: 'GET',
-                        });
-                        const res_data = await response.json();
-                        this.data = res_data ;
-                        console.log("成功", res_data );
-                    } catch (error) {
-                        console.log("錯誤", error);
-                    }
-                }
-            }
-        });
-
-        app.mount('#app');
-    </script>
 </body>
 </html>
